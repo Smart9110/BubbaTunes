@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+
+<title>Members Login </title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <!--<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->  
+  
+  <!--<link rel="stylesheet" type="text/css" href="css/musicapp.css">-->
+   <link rel="stylesheet" href="progres-bar.css">
+  
+<script>
+   
+	var ref = cordova.InAppBrowser.open(url, target, options);
+	var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+
+	
+	var inAppBrowserRef;
+
+function showHelp(url) {
+
+    var target = "_blank";
+
+    var options = "location=yes,hidden=yes";
+
+    inAppBrowserRef = cordova.InAppBrowser.open(url, target, options);
+
+    inAppBrowserRef.addEventListener('loadstart', loadStartCallBack);
+
+    inAppBrowserRef.addEventListener('loadstop', loadStopCallBack);
+
+    inAppBrowserRef.addEventListener('loaderror', loadErrorCallBack);
+
+}
+
+function loadStartCallBack() {
+
+    $('#status-message').text("loading please wait ...");
+
+}
+
+function loadStopCallBack() {
+
+    if (inAppBrowserRef != undefined) {
+
+        inAppBrowserRef.insertCSS({ code: "body{font-size: 25px;" });
+
+        $('#status-message').text("");
+
+        inAppBrowserRef.show();
+    }
+
+}
+
+function loadErrorCallBack(params) {
+
+    $('#status-message').text("");
+
+    var scriptErrorMesssage =
+       "alert('Sorry we cannot open that page. Message from the server is : "
+       + params.message + "');"
+
+    inAppBrowserRef.executeScript({ code: scriptErrorMesssage }, executeScriptCallBack);
+
+    inAppBrowserRef.close();
+
+    inAppBrowserRef = undefined;
+
+}
+
+function executeScriptCallBack(params) {
+
+    if (params[0] == null) {
+
+        $('#status-message').text(
+           "Sorry we couldn't open that page. Message from the server is : '"
+           + params.message + "'");
+    }
+
+}
+
+	
+	ref.close();
+
+</script>
+  
+<!--<script>
+    // allow local previewing of JQM app
+           $(document).bind('mobileinit',function(){
+               $.mobile.pushStateEnabled = false; 
+           }); 
+    
+
+function $(id){
+   //gets an element by the id passed to it.
+   return document.getElementById(id);
+}
+   
+</script>-->
+
+
+<style>
+
+.copy{font-size:1em;
+
+
+}
+.copy a{text-decoration:none;
+
+}
+
+{background-color:lightblue;
+				height:650px;
+
+}
+
+
+
+</style>
+
+
+</head>
+<body>
+		
+
+	
+	<div data-role="page" data-theme="a" class="ui-content">
+	<div data-role="header" data-position="fixed">
+		 <h1>Music Radio</h1>
+		</div> 
+
+<div data-role="main" class="ui-content">
+<div data-role="controlgroup" data-type="horizontal">
+       <a href="start.html" class="ui-btn">Music Selections</a>
+	   <a href="javascript:history.go(-1)" class="ui-btn">Back</a>
+         </div><br>
+
+<br>
+<br>
+
+<div data-role="main" class="ui-content">
+	<ul data-role="listview" data-inset="true">
+    	
+      <li data-role="list-divider"><p>WJKS-FM 104.3 MHz<br>
+		Keeseville, New York<br>
+		"104.3 KISS-FM"</p><a href="http://ice10.securenetsystems.net/WJKS.m3u">Hip Hop</a></li>
+      </ul>
+      
+      <ul data-role="listview" data-inset="true">
+       <li data-role="list-divider"><p>WAJZ-FM 96.3 MHz
+       <br>Voorheesville, New York<br>
+		</p><a href="http://provisioning.streamtheworld.com/pls/wajzfm.pls">Hip Hop</a></li>
+		</ul>
+      	<ul data-role="listview" data-inset="true">
+       <li data-role="list-divider"><p>WPWX-FM 92.3 MHz<br>
+		Hammond, Indiana<br>
+		"Power 92 Chicago"</p> <a href="http://den-a.plr.liquidcompass.net/pls/WPMX-fm.pls">Hip Hop</a></li>
+       </ul>
+       
+       <ul data-role="listview" data-inset="true">
+       <li data-role="list-divider"><p>WCZQ-FM 105.5 MHz<br>
+		Monticello, Illinois<br>
+		"Power 92 Chicago"</p> <a href="http://provisioning.streamtheworld.com/pls/wcqzfm.pls">Hip Hop</a></li>
+       </ul>
+       
+       <ul data-role="listview" data-inset="true">
+       <li data-role="list-divider"><p>WZMX-FM 93.7 MHz<br>
+		Hartford, Connecticut<br>
+		"Hot 93.7"</p> 
+		<a href="#" onclick="window.open('http://provisioning.streamtheworld.com/pls/wzmxfm.pls', '_system', 'location=yes');" >Hip Hop</a></li><br>
+		    </ul>
+
+      
+       <div data-role="footer"  data-position="fixed" style="text-align:center;">
+      <h3 class="copy"><a href="copyright.html">Copy Right&copy;Uhinkle Corporation</a></h3>
+      </div>
+
+       
+      </div>
+	</div>
+
+</body>
+</html>
+
+  
+    

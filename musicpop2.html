@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />-->
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+	 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/musicapp.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Music R&B</title>
+
+  	  
+
+
+
+  
+<!--<script>
+    // allow local previewing of JQM app
+           $(document).bind('mobileinit',function(){
+               $.mobile.pushStateEnabled = false; 
+           }); 
+    
+
+function $(id){
+   //gets an element by the id passed to it.
+   return document.getElementById(id);
+}
+
+
+
+</script>-->
+
+
+
+
+
+<style>
+
+.copy{font-size:1em;
+
+
+}
+.copy a{text-decoration:none;
+
+}
+
+{background-color:lightblue;
+				height:650px;
+
+}
+
+
+
+{
+    background-color: lightgrey;
+    width: 300px;
+    height:200px;
+    border: 25px solid green;
+    padding: 45px;
+    margin: 25px;
+}
+
+div.audio img{width: 30%;
+		height:auto;
+
+}
+
+
+
+
+</style>
+
+
+</head>
+
+
+<script>
+
+var ref = cordova.InAppBrowser.open('http://BubbaTunes.com', '_blank', 'location=yes');
+
+
+</script>
+
+
+
+<script>
+   
+	var ref = cordova.InAppBrowser.open(url, target, options);
+	var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+
+	
+	var inAppBrowserRef;
+
+function showHelp(url) {
+
+    var target = "_blank";
+
+    var options = "location=yes,hidden=yes";
+
+    inAppBrowserRef = cordova.InAppBrowser.open(url, target, options);
+
+    inAppBrowserRef.addEventListener('loadstart', loadStartCallBack);
+
+    inAppBrowserRef.addEventListener('loadstop', loadStopCallBack);
+
+    inAppBrowserRef.addEventListener('loaderror', loadErrorCallBack);
+
+}
+
+function loadStartCallBack() {
+
+    $('#status-message').text("loading please wait ...");
+
+}
+
+function loadStopCallBack() {
+
+    if (inAppBrowserRef != undefined) {
+
+        inAppBrowserRef.insertCSS({ code: "body{font-size: 25px;" });
+
+        $('#status-message').text("");
+
+        inAppBrowserRef.show();
+    }
+
+}
+
+function loadErrorCallBack(params) {
+
+    $('#status-message').text("");
+
+    var scriptErrorMesssage =
+       "alert('Sorry we cannot open that page. Message from the server is : "
+       + params.message + "');"
+
+    inAppBrowserRef.executeScript({ code: scriptErrorMesssage }, executeScriptCallBack);
+
+    inAppBrowserRef.close();
+
+    inAppBrowserRef = undefined;
+
+}
+
+function executeScriptCallBack(params) {
+
+    if (params[0] == null) {
+
+        $('#status-message').text(
+           "Sorry we couldn't open that page. Message from the server is : '"
+           + params.message + "'");
+    }
+
+}
+
+	
+	ref.close();
+
+</script>
+
+<body>
+
+	<div data-role="page" data-theme="a"><!--/a,b,c,d,e -->
+	<div data-role="header"  data-position="fixed">
+	<h1>BubbaTunes</h1>
+	</div>
+
+	<div data-role="main" class="ui-content music" style="text-align:center"; >
+	
+		<div data-role="controlgroup" data-type="horizontal">
+      	 <a href="start.html" class="ui-btn">Music Selections</a>
+	 	 <a href="javascript:history.go(-1)" class="ui-btn">Back</a>
+         </div><br>
+
+<br>
+<br>
+   <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+          <hr>        
+<div data-role="main" class="ui-content">
+    
+  <hr>
+
+      
+    <div class="audio" style="width:30%">
+      <img src="images/malone(500x500).jpeg" alt="malone(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/PostMalone /rockstar(feat21Savage).mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Rockstar":Post Malone Featuring 21 Savage</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	
+
+		
+<br>
+<hr>
+
+   
+        <div class="audio" style="width:30%">
+      <img src="images/coreyfeldman3(500x500).jpg" alt="coreyfeldman3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/CoryFeldman/01AscensionMillennium.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Ascension Millennium" Kenny by Cory Feldman</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	
+
+		
+<br>
+<hr>
+
+     
+        <div class="audio" style="width:30%">
+      <img src="images/jasongould(500x500).jpg"  alt="jasongould" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/JasonGould/01MorningPrayer.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  Morning Prayer" By Jason Gould</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+<br>
+<hr>
+
+
+  
+        <div class="audio" style="width:30%">
+      <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500 " ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  Mercedes Benz" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+
+	<br>
+	<hr>
+
+   
+ 
+ 
+        <div class="audio" style="width:30%">
+      <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500 " ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/ReginaSpektor/01Samson.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  Samson" By Regina Spektor"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+	<br>
+	<hr>
+
+ 
+  	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500) " ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/CoryFeldman/02LovinLies.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       	<h3>"Lovin Lies" by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+		
+
+<hr>
+<br>
+
+ 	
+        <div class="audio" style="width:30%">
+      <img src="images/jasongould(500x500).jpg"  alt="jasongould " ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/JasonGould/02ThisMasquerade.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+        <h3>" This Masquerade" By Jason Gould</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	
+	<br>
+	<hr>
+	
+   
+   
+   
+ 
+        <div class="audio" style="width:30%">
+      <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500) " ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/MonaLisaTwins/02FridayOnMyMind.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Friday On My Mind" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	<br>
+	<hr>
+	
+    
+  
+        <div class="audio" style="width:30%">
+      <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/ReginaSpektor/02Oedipus.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>" Oedipus" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+  
+
+	<br>
+	<hr>
+  	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source  src="musicpop/CoryFeldman/03Angelic2TheCore.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Angelic 2 The Core" by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	 
+ 	
+	
+		
+  	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/jasongould(500x500).jpg"  alt="jasongould" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/JasonGould/03Hello.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Hello" By Jason Gould</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+   	
+   	<br>
+   	<hr>
+   	
+   
+  
+
+		
+        <div class="audio" style="width:30%">
+      <img  src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/ReginaSpektor/03Prisoners.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Prisoners" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	 
+	 
+	
+        <div class="audio" style="width:30%">
+      <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/CoryFeldman/044BiddenAttraction.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"4Bidden Attraction" by Cory Feldman</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+
+	
+	
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/jasongould(500x500).jpg"  alt="jasongould" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/JasonGould/04HowDeepistheOcean.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  How Deep is the Ocean" By Jason Gould</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/MonaLisaTwins/04ThisBoy.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" This Boy" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+  
+   <br>
+   <hr>
+   
+  	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/ReginaSpektor/04ReadingTimeWithPickle.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>" Reading Time With Pickle" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+    
+   <br>
+   <hr>
+   
+  	
+        <div class="audio" style="width:30%">
+      <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)"  ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/CoryFeldman/05TheLine.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"The Line" by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+<br>
+<hr>
+
+  	
+        <div class="audio" style="width:30%">
+      <img src="images/jasongould(500x500).jpg"  alt="jasongould"  ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/JasonGould/05NatureBoy.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Nature Boy"  By Jason Gould</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+		
+        <div class="audio" style="width:30%">
+      <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500) " ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/MonaLisaTwins/05InMyLife.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  In My Life" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	
+        <div class="audio" style="width:30%">
+      <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/ReginaSpektor/05ConsequenceofSounds.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  Consequence of Sounds" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+  	
+        <div class="audio" style="width:30%">
+      <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/CoryFeldman/06BadPeople.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Bad People" by Cory Feldman</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500) " ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/MonaLisaTwins/06Blackbird.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+        <h3>"  Blackbird" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+   
+   
+	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/ReginaSpektor/06DanielCowan.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  Daniel Cowan" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+    
+  	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/CoryFeldman/07Duh.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Duh" Kenny by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+<br>
+<hr>
+	
+  	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500) " ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/MonaLisaTwins/07ForWhatItsWorth.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  For What Its Worth" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+   
+   <br>
+   <hr>
+   
+  	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/ReginaSpektor/07Bonldee.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>"Bon Idée" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+    
+   <br>
+   <hr>
+
+  <div class="mediPlayer" style="width:30%">
+  <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/CoryFeldman/08Everybody.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+ 	<div>
+       	<h3>"Everybody by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musiccfeldmanpurchases.inc.php?content=updatecart&id=525"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicpop/CoryFeldman/08Everybody.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Everybody by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	
+	<br>
+<hr>
+
+  <div class="mediPlayer" style="width:30%">
+  <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500) " style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/MonaLisaTwins/08DriveMYCar.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+      <h3>" Drive MY Car" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musicmltwinspurchases.inc.php?content=updatecart&id=524"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+    
+   <br>
+   <hr>
+   
+   <div class="mediPlayer" style="width:30%">
+  <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/ReginaSpektor/08AchingToPupate.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  		<div>
+      	<h3>"  Aching To Pupate" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musicrspektorpurchases.inc.php?content=updatecart&id=523"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	
+  	<br>
+	<hr>
+  <div class="w3-cell mediPlayer" style="width:30%">
+  <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/CoryFeldman/09LicketySplickety.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+       <h3>"Lickety Splickety" by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musiccfeldmanpurchases.inc.php?content=updatecart&id=525"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Everybody by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	
+
+<br>
+<hr>
+  <div class="mediPlayer" style="width:30%">
+  <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/MonaLisaTwins/09CantBuyMeLove.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+       <h3>"  Can't Buy Me Love" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musicmltwinspurchases.inc.php?content=updatecart&id=524"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+    	
+   	<br>
+   	<hr>
+  <div class="mediPlayer" style="width:30%">
+  <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/ReginaSpektor/09Lounge.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  		<div>
+       <h3>" Lounge" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musicrspektorpurchases.inc.php?content=updatecart&id=523"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+    
+   <br>
+   <hr>
+
+  <div class="mediPlayer" style="width:30%">
+  <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/CoryFeldman/10Go4It.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+      <h3>"Go 4 It!"  by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musiccfeldmanpurchases.inc.php?content=updatecart&id=525"class="ui-btn">To Purchase CD</a>
+    <input type="button" value="To Purchase CD">-->
+	 </div>
+	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Everybody by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	
+<br>
+<hr>
+
+
+	  <div class="mediPlayer" style="width:30%">
+  <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/MonaLisaTwins/10WhileMyGuitarGentlyWeeps.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+      <h3>"   While My Guitar Gently Weeps" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musicmltwinspurchases.inc.php?content=updatecart&id=524"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+   
+   <br>
+   <hr>
+   
+   <div class="mediPlayer" style="width:30%">
+  <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/ReginaSpektor/10Lacrimosa.mp3" ></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  		<div>
+      <h3>"  Lacrimosa" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musicrspektorpurchases.inc.php?content=updatecart&id=523"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+   
+   <br>
+   <hr>
+
+
+  <div class="mediPlayer" style="width:30%">
+  <img src="images/coreyfeldman3(500x500).jpg"  alt="coreyfeldman3(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/CoryFeldman/11Test1.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+      <h3>"Test 1" Kenny by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musiccfeldmanpurchases.inc.php?content=updatecart&id=525"class="ui-btn">To Purchase CD</a>
+    <input type="button" value="To Purchase CD">-->
+	 </div>
+	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>"Everybody by Cory Feldman"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+<hr>
+<br>
+  <div class="mediPlayer" style="width:30%">
+  <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/MonaLisaTwins/11GodOnlyKnows.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+      <h3>"    God Only Knows" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musicmltwinspurchases.inc.php?content=updatecart&id=524"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+  
+ <br>
+<hr>
+
+ 
+  <div class="mediPlayer" style="width:30%">
+  <img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/ReginaSpektor/11Lulliby.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  		<div>
+      <h3>"  Lulliby" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musicrspektorpurchases.inc.php?content=updatecart&id=523"class="ui-btn">To Purchase CD</a>
+    <input type="button" value="To Purchase CD">-->
+	 </div>
+	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+<hr>
+<br>
+ <div class="mediPlayer" style="width:30%">
+  <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/MonaLisaTwins/12PeopleAreStrange.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+      <h3>" People Are Strange" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musicmltwinspurchases.inc.php?content=updatecart&id=524"class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+ 
+
+<hr>
+<br>
+
+  <div class="mediPlayer" style="width:30%">
+  	<img src="images/spektor2(500x500).jpg"  alt="spektor2(500x500)" style="width:100%">
+  	<audio class="listen" preload="none" data-size="60" src="musicpop/ReginaSpektor/12NeMeQuittePas.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  		<div>
+       	<h3>" Ne Me Quitte Pas" By Regina Spektor</h3>
+    <!--<a href="https://www.uhinkle.com/musicrspektorpurchases.inc.php?content=updatecart&id=523"class="ui-btn">To Purchase CD</a>
+    <input type="button" value="To Purchase CD">-->
+	 </div>
+	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+	 
+	
+	<br>
+	<hr>
+
+	  <div class="mediPlayer" style="width:30%">
+  <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/MonaLisaTwins/13DayTripper.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+      <h3>"  Day Tripper" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musicmltwinspurchases.inc.php?content=updatecart&id=524"class="ui-btn">To Purchase CD</a>
+    <input type="button" value="To Purchase CD">-->
+	 </div>
+	 
+	 
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+  
+<hr>
+<br>
+	  <div class="mediPlayer" style="width:30%">
+  <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/MonaLisaTwins/14TheLastTime.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div>
+  	<div>
+      <h3>"  The Last Time" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musicmltwinspurchases.inc.php?content=updatecart&id=524" class="ui-btn">To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+	</div>
+	
+	
+	
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+  
+<hr>
+<br>
+
+	  <div class="mediPlayer" style="width:30%">
+  <img src="images/monalisatwins4(500x500).jpg"  alt="monalisatwins4(500x500)" style="width:100%">
+  <audio class="listen" preload="none" data-size="60" src="musicpop/MonaLisaTwins/15MercedesBenz.mp3"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	 </div> 
+  	 	<div>
+       	<h3>" Mercedes Benz" By MonaLisa Twins</h3>
+    <!--<a href="https://www.uhinkle.com/musicmltwinspurchases.inc.php?content=updatecart&id=524"class="ui-btn" >To Purchase CD</a>
+     <input type="button" value="To Purchase CD">-->
+ </div>
+ 
+ 
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+<hr>
+	
+<br>	
+
+
+<div data-role="footer"  data-position="fixed" style="text-align:center;">
+  <h3 class="copy"><a href="copyright.html">Copy Right&copy;Uhinkle Corporation</a></h3>
+</div>
+
+</div>
+</div>
+	
+<!-- Media Player / -->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="player.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.mediPlayer').mediaPlayer();
+    });
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

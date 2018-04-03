@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />-->
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/musicapp.css">
+   <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+
+    <title>Start</title>
+    
+    
+    
+<script>
+
+var ref = cordova.InAppBrowser.open('http://BubbaTunes.com', '_blank', 'location=yes');
+
+
+</script>
+
+
+
+<script>
+   
+	var ref = cordova.InAppBrowser.open(url, target, options);
+	var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+
+	
+	var inAppBrowserRef;
+
+function showHelp(url) {
+
+    var target = "_blank";
+
+    var options = "location=yes,hidden=yes";
+
+    inAppBrowserRef = cordova.InAppBrowser.open(url, target, options);
+
+    inAppBrowserRef.addEventListener('loadstart', loadStartCallBack);
+
+    inAppBrowserRef.addEventListener('loadstop', loadStopCallBack);
+
+    inAppBrowserRef.addEventListener('loaderror', loadErrorCallBack);
+
+}
+
+function loadStartCallBack() {
+
+    $('#status-message').text("loading please wait ...");
+
+}
+
+function loadStopCallBack() {
+
+    if (inAppBrowserRef != undefined) {
+
+        inAppBrowserRef.insertCSS({ code: "body{font-size: 25px;" });
+
+        $('#status-message').text("");
+
+        inAppBrowserRef.show();
+    }
+
+}
+
+function loadErrorCallBack(params) {
+
+    $('#status-message').text("");
+
+    var scriptErrorMesssage =
+       "alert('Sorry we cannot open that page. Message from the server is : "
+       + params.message + "');"
+
+    inAppBrowserRef.executeScript({ code: scriptErrorMesssage }, executeScriptCallBack);
+
+    inAppBrowserRef.close();
+
+    inAppBrowserRef = undefined;
+
+}
+
+function executeScriptCallBack(params) {
+
+    if (params[0] == null) {
+
+        $('#status-message').text(
+           "Sorry we couldn't open that page. Message from the server is : '"
+           + params.message + "'");
+    }
+
+}
+
+	
+	ref.close();
+
+</script>
+
+
+
+
+
+<style>
+
+.eightteen p a{text-decoration:none;
+				
+
+}
+
+{background-color:lightblue;
+				height:650px;
+
+}
+
+.copy{font-size:1em;
+
+
+}
+.copy a{text-decoration:none;
+
+}
+
+.ui-btn{ font-size:1.5em;
+
+}
+
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+</style>
+
+
+
+<button onclick="myFunction()">Reload page</button>
+
+
+
+</head>
+<body>
+	
+
+<div data-role="page" data-theme="a" class="ui-content">
+	<div data-role="header" data-position="fixed">
+		 <h1>R&B</h1>
+		</div> 
+
+<div data-role="main" class="ui-content ui-body-f">
+<div data-role="controlgroup" data-type="horizontal">
+       <!--<a href="index.html" class="ui-btn">Home</a>-->
+    <a target="_blank" href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.2:3000/index.html', '_system', 'location=yes');">Home</a>
+      <a href="javascript:history.go(-1)" class="ui-btn">Back</a>
+         </div><br>
+         
+         
+         
+      <div data-role="controlgroup" data-type="horizontal" class="ui-content" >    
+	 <div class="gallery">
+  	<!--<a target="_blank" href="images/Natilie(500x500).jpg">-->
+  	 <a target="_blank" href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.2:3000/musicrandb.html', '_system', 'location=yes');">
+    <img src="images/Natilie(500x500).jpg" alt="Trolltunga Norway" width="300" height="200">
+  	</a>
+  	<div class="desc">R&B Music Streaming</div>
+	</div>
+	<div class="gallery">
+  	<!--<a target="_blank" href="images/Natilie(500x500).jpg">-->
+  	 <a target="_blank" href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.2:3000/musicrap.html', '_system', 'location=yes');">
+    <img src="images/Lecrae(500x500).jpg" alt="Trolltunga Norway" width="300" height="200">
+  	</a>
+  	<div class="desc">RAP Music Streaming</div>
+	</div>
+	<div class="gallery">
+  	<!--<a target="_blank" href="images/Natilie(500x500).jpg">-->
+  	 <a target="_blank" href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.2:3000/musicpop.html', '_system', 'location=yes');">
+    <img src="images/jasongould(500x500).jpg" alt="Trolltunga Norway" width="300" height="200">
+  	</a>
+  	<div class="desc">Pop Music Streaming</div>
+	</div>
+	
+	<div class="gallery">
+  	<!--<a target="_blank" href="images/Natilie(500x500).jpg">-->
+  	 <a target="_blank" href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.2:3000/musicexercisepop2012.html', '_system', 'location=yes');">
+    <img src="images/#" alt="Trolltunga Norway" width="300" height="200">
+  	</a>
+  	<div class="desc">Exercise 2012 Streaming</div>
+	</div>
+		
+
+	</div>
+	</div>
+
+
+
+
+
+         
+ <!--<div data-role="controlgroup" data-type="vertical">-->
+       <!--<a href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.4:3000/musicrandb.html', '_system', 'location=yes');">Music R&B</a>-->
+       <!--<a href="musicrandbsaturday.html" class="ui-btn ui-shadow">Music R&B Saturday Continuous Play</a>-->
+
+        <!--<a href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.4:3000/musicpop.html', '_system', 'location=yes');">Music POP</a>-->
+        
+        <!--<a href="musicpopsaturday.html" class="ui-btn ui-shadow ">Music POP Saturday Continuous Play</a>-->
+         
+         <!--<a href="musicreggae.html" class="ui-btn ui-shadow">Music Reggae</a>
+         <a href="musicreggaesaturday.html" class="ui-btn ui-shadow">Music Reggae Saturday Continuous Play</a>-->
+         
+          <!--<a href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.4:3000/musicrap.html', '_system', 'location=yes');">Music RAP</a>-->
+          <!--<a href="musicrapsaturday.html" class="ui-btn ui-shadow">Music RAP Saturday Continuous Play</a>-->
+          
+          <!--<a href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.4:3000/musicrock.html', '_system', 'location=yes');">Music Rock</a>-->
+          <!--<a href="musicrapsaturday.html" class="ui-btn ui-shadow">Music RAP Saturday Continuous Play</a>-->
+ 
+          
+
+          <!--<a href="#" class="ui-btn ui-shadow" onclick="window.open('http://192.168.1.4:3000/musicexercisepop2012.html', '_system', 'location=yes');">Exercise POP BubbaTunes Music 2012</a>-->
+          <!--<a href="public/musicexercisepop2014.html" class="ui-btn ui-shadow">Exercise POP BubbaTunes Music 2014</a>
+          <a href="public/musicexercisepop2016.html" class="ui-btn ui-shadow">Exercise POP BubbaTunes Music 2016</a>
+          <a href="public/musicexercisepop2017.html" class="ui-btn ui-shadow">Exercise POP BubbaTunes Music 2017</a>-->
+       
+       
+       
+        
+ 
+ 
+      
+      		<!--<a href="musicradio.html" class="ui-btn ui-shadow">Music Radio All Genres</a>-->
+      		 <!--<a href="musicradiorock.html" class="ui-btn ui-shadow">Music Radio Rock</a>-->
+       
+      
+      
+      
+    <!--</div>
+ 	</div>-->
+ 
+
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+<div data-role="footer"  data-position="fixed" style="text-align:center;">
+  <h3 class="copy"><a href="copyright.html">Copy Right&copy;Uhinkle Corporation</a></h3>
+</div>
+</div>
+
+<script type="text/javascript">
+function myFunction() {
+    location.reload();
+}
+
+
+
+
+
+
+$('a').click(function(e) { 
+  if (this.href.substr(0,4) === 'http') {
+    e.preventDefault();
+    cordova.InAppBrowser.open(this.href, '_system');
+  }
+});
+
+</script>
+
+
+
+
+
+</body>
+</html>

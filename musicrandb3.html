@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />-->
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+	 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/musicapp.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Music R&B</title>
+
+  	  
+
+
+
+  
+<!--<script>
+    // allow local previewing of JQM app
+           $(document).bind('mobileinit',function(){
+               $.mobile.pushStateEnabled = false; 
+           }); 
+    
+
+function $(id){
+   //gets an element by the id passed to it.
+   return document.getElementById(id);
+}
+
+
+
+</script>-->
+
+
+
+
+
+<style>
+
+.copy{font-size:1em;
+
+
+}
+.copy a{text-decoration:none;
+
+}
+
+{background-color:lightblue;
+				height:650px;
+
+}
+
+
+
+{
+    background-color: lightgrey;
+    width: 300px;
+    height:200px;
+    border: 25px solid green;
+    padding: 45px;
+    margin: 25px;
+}
+
+div.audio img{width: 30%;
+		height:auto;
+
+}
+
+
+
+
+</style>
+
+
+</head>
+
+
+<script>
+
+var ref = cordova.InAppBrowser.open('http://BubbaTunes.com', '_blank', 'location=yes');
+
+
+</script>
+
+
+
+<script>
+   
+	var ref = cordova.InAppBrowser.open(url, target, options);
+	var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+
+	
+	var inAppBrowserRef;
+
+function showHelp(url) {
+
+    var target = "_blank";
+
+    var options = "location=yes,hidden=yes";
+
+    inAppBrowserRef = cordova.InAppBrowser.open(url, target, options);
+
+    inAppBrowserRef.addEventListener('loadstart', loadStartCallBack);
+
+    inAppBrowserRef.addEventListener('loadstop', loadStopCallBack);
+
+    inAppBrowserRef.addEventListener('loaderror', loadErrorCallBack);
+
+}
+
+function loadStartCallBack() {
+
+    $('#status-message').text("loading please wait ...");
+
+}
+
+function loadStopCallBack() {
+
+    if (inAppBrowserRef != undefined) {
+
+        inAppBrowserRef.insertCSS({ code: "body{font-size: 25px;" });
+
+        $('#status-message').text("");
+
+        inAppBrowserRef.show();
+    }
+
+}
+
+function loadErrorCallBack(params) {
+
+    $('#status-message').text("");
+
+    var scriptErrorMesssage =
+       "alert('Sorry we cannot open that page. Message from the server is : "
+       + params.message + "');"
+
+    inAppBrowserRef.executeScript({ code: scriptErrorMesssage }, executeScriptCallBack);
+
+    inAppBrowserRef.close();
+
+    inAppBrowserRef = undefined;
+
+}
+
+function executeScriptCallBack(params) {
+
+    if (params[0] == null) {
+
+        $('#status-message').text(
+           "Sorry we couldn't open that page. Message from the server is : '"
+           + params.message + "'");
+    }
+
+}
+
+	
+	ref.close();
+
+</script>
+
+
+
+
+
+
+<body>
+
+	<div data-role="page" data-theme="a"><!--/a,b,c,d,e -->
+	<div data-role="header"  data-position="fixed">
+	<h1>BubbaTunes</h1>
+	</div>
+
+	<div data-role="main" class="ui-content music" style="text-align:center"; >
+	
+		<div data-role="controlgroup" data-type="horizontal">
+      	 <a href="start.html" class="ui-btn">Music Selections</a>
+	 	 <a href="javascript:history.go(-1)" class="ui-btn">Back</a>
+         </div><br>
+
+<br>
+<br>
+
+   
+   <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+      
+    
+          <hr>
+          
+          
+          
+          
+        
+        
+        
+        
+        <div class="audio" style="width:30%">
+      <img src="images/Beyonce08(500x500).jpg" alt="images/Beyonce(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/Beyonce/SingleLadies(PutaRingOnIt).mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Beyonce"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+			
+		   <div class="audio" style="width:30%">
+      <img src="images/Chris(500x500).jpg" alt="images/Chris(500x500)"><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/ChrisBrown/01Privacy.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Privacy" By Christ Brown</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+  
+  
+         
+		<br>
+		<hr>
+		
+		
+		
+			
+		   <div class="audio" style="width:30%">
+      <img src="images/Natilie(500x500).jpg" alt="images/Natilie(500x500)"><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/NatalieLaRose/01Somebody(feat.Jeremih).mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Somebody" By Natalie La Rose</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+  
+  
+  	<br>
+  	<hr>
+  	
+  	
+  		
+		   <div class="audio" style="width:30%">
+      <img src="images/SZA(500x500).jpg" alt="images/SZA(500x500)"><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/SZA/02LoveGalore.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Love Galore(feat.Travis Scott)" By SZA</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+  
+  
+  	<br>
+  	<hr>
+		
+	
+
+		
+	
+
+		
+		
+	
+
+	
+
+	
+
+    
+   
+        <div class="audio" style="width:30%">
+      <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/01GottaGetThat.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Gotta Get That" By Travis Smith</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+
+      <div class="audio" style="width:30%">
+     <img src="images/terrywright1(500x500).jpg" alt="images/terrywright1(500x500)"><br>
+      <audio controls>
+  	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TerryWright/01Track1.mp3"></audio>-->
+  	 <source src="musicrandb/TerryWright/01Track1.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>" Make That Body Rock" By Terry Wright</h3>
+       <!--<a href="https://www.uhinkle.com/musictwrightpurchase.inc.php?content=updatecart&id=494" class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictwrightpurchase.inc.php?content=updatecart&id=494','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+  
+    
+    <br>
+    <hr>
+    
+         <div class="audio" style="width:30%">
+        <img src="images/andystokes12(500x500).jpg" alt="images/andystokes12(500x500)"><br>
+         <audio controls>
+        <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/AndyStokes/02OhMy(MyOhMy).mp3"></audio>-->
+  	   <source src="musicrandb/AndyStokes/02OhMy(MyOhMy).mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Oh My (My Oh My)" By Andy Stokes</h3>
+       <!--<a href="https://www.uhinkle.com/musicastokespurchases.inc.php?content=updatecart&id=519" class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicastokespurchases.inc.php?content=updatecart&id=519','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	</div>
+   
+    
+    <br>
+    <hr>
+    
+    
+    
+        <div class="audio" style="width:30%">
+      <img src="images/tonylindsay06(500x500).jpg" alt="images/tonylindsay06(500x500).jpg" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/TonyLindsay/09LoveTrain.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Love Train" By Tony Lindsay</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+
+
+
+    
+          <div class="audio" style="width:30%">
+          <img src="images/thecaliforniahoneydrops(500x500).jpg" alt="images/thecaliforniahoneydrops(500x500)" ><br>
+          <audio controls>
+       <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/ARiversInvitation/02WhenItWasWrong.mp3"></audio>-->
+  	 <source src="musicrandb/ARiversInvitation/02WhenItWasWrong.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" When It Was Wrong" By California Honey Dipps</h3>
+    <!--<a href="https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497" class="ui-btn">To Purchase CD</a>-> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	</div>
+  
+    
+    <br>
+    <hr>
+   
+             
+    
+  		<div class="audio" style="width:30%">
+  		  <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)"><br>
+   		<audio controls>
+   	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/02LookGood.mp3"></audio>-->
+  	 <source  src="musicrandb/TravisSmith/02LookGood.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Look Good" By Travis Smith</h3>
+        <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521" class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	</div>
+  
+	<br>
+	<hr>
+	
+  		 
+ 		<div class="audio" style="width:30%">
+ 		 <!--<div class="mediPlayer" style="width:30%">-->
+   		<img src="images/wendellb(500x500).jpg" alt="images/wendellb(500x500)" ><br>
+   		<audio controls>
+      <!--<audio preload="none" data-size="60" src="musicrandb/WendellB/02CelebrateYoDay.mp3"></audio>-->
+  	 <source src="musicrandb/WendellB/02CelebrateYoDay.mp3" type="audio/mp3"></audio>
+  	 </div>
+  		<div>
+       	<h3>" Celebrate Yo Day" By Wendell B</h3>
+       <!--<a href="https://www.uhinkle.com/musicwendellbpurchase.inc.php?content=updatecart&id=495" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicwendellbpurchase.inc.php?content=updatecart&id=495','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+
+    <br>
+    <hr>
+    
+    
+    
+        <div class="audio" style="width:30%">
+      <img src="images/Beyonce08(500x500).jpg" alt="images/Beyonce(500x500)" ><br>
+      <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/01GottaGetThat.mp3"></audio>-->
+  	 <source src="musicrandb/Beyonce/2-04SweetDreams.mp3"  type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Beyonce"</h3>
+    <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521"class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+	<br>
+	<hr>
+	
+
+    
+  		    
+  		<div class="audio" style="width:30%">
+  		 <img src="images/andystokes12(500x500).jpg" alt="images/andystokes12(500x500)"><br>
+   		<audio controls>
+   	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/AndyStokes/03Let'sHaveaGoodTime.mp3"></audio>-->
+  	 <source src="musicrandb/AndyStokes/03Let'sHaveaGoodTime.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"Let's Have a Good Time" By Andy Stokes</h3>
+        <!--<a href="https://www.uhinkle.com/musicastokespurchases.inc.php?content=updatecart&id=519" class="ui-btn">To Purchase CD</a> -->
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicastokespurchases.inc.php?content=updatecart&id=519','_system', 'location=yes');">To Purchase CD</a>--> 
+
+  </div>
+
+  		<br>
+	<hr>
+	
+	
+	
+  		<div class="audio" style="width:30%">
+  		 <img src="images/thecaliforniahoneydrops(500x500).jpg" alt="images/thecaliforniahoneydrops(500x500)"><br>
+   		<audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/ARiversInvitation/03BrokedownPt1&2.mp3"></audio>-->
+  	 <source  src="musicrandb/ARiversInvitation/03BrokedownPt1&2.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+    <h3>" Brokedown Pt 1 & 2" By California Honey Dipps</h3>
+       <!--<a href="https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497" class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+ 
+	<br>
+	<hr>
+	
+	
+  		<div class="audio" style="width:30%">
+  		 <img src="images/methrone12(500x500).jpg" alt="images/methrone12(500x500)" ><br>
+   		<audio controls>
+   	   <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/MeThrone/03NobodyElse.mp3"></audio>-->
+  	 <source src="musicrandb/MeThrone/03NobodyElse.mp3" type="audio/mp3"></audio>
+  	 </div>
+  		<div>
+      <h3>"  Nobody Else" By MeThrone</h3>
+      <!--<a href="https://www.uhinkle.com/musicmethronepurchases.inc.php?content=updatecart&id=520" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicmethronepurchases.inc.php?content=updatecart&id=520','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	</div>
+    
+	<br>
+	<hr>
+	
+
+  		
+    
+     
+  
+  		<div class="audio" style="width:30%">
+  		 <img src="images/wendellb(500x500).jpg" alt="images/wendellb(500x500)"><br>
+  		 <audio controls>
+   	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/WendellB/03WeSteppin'OutTonight.mp3"></audio>-->
+  	 <source src="musicrandb/WendellB/03WeSteppinOutTonight.mp3" type="audio/mp3"></audio>
+  	 </div>
+  		<div>
+      <h3>"We Steppin' Out Tonight" By Wendell B</h3>
+       <!--<a href="https://www.uhinkle.com/musicwendellbpurchase.inc.php?content=updatecart&id=495" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicwendellbpurchase.inc.php?content=updatecart&id=495','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	 </div>
+   
+    
+    <br>
+    <hr>
+    
+  	
+		<div class="audio" style="width:30%">
+		  <img src="images/harveylee14(500x500).jpg" alt="images/harveylee14(500x500)"><br>
+   		<audio controls>
+   	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/HarveyLee/04PerfectNight.mp3"></audio>-->
+  	 <source src="musicrandb/HarveyLee/04PerfectNight.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	 <div>
+       	<h3>"Perfect Night" By Harvey Lee</h3>
+       <!--<a href="https://www.uhinkle.com/musichleepurchases.inc.php?content=updatecart&id=515" class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musichleepurchases.inc.php?content=updatecart&id=515','_system', 'location=yes');">To Purchase CD</a>--> 
+
+  	</div>
+  
+    
+    <br>
+    <hr>
+      
+	
+ 		  
+  		<div class="audio" style="width:30%">
+  		 <img src="images/thecaliforniahoneydrops(500x500).jpg" alt="images/thecaliforniahoneydrops(500x500)"><br>
+   		<audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/ARiversInvitation/06CrazyGirls.mp3"></audio>-->
+  	 <source src="musicrandb/ARiversInvitation/06CrazyGirls.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>" Crazy Girls" By California Honey Dipps</h3>
+       <!--<a href="https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497" class="ui-btn">To Purchase CD</a>--> 
+    <!--<input type="button" class="move"  value="To Purchase CD">-->
+     <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	</div>
+   
+	<br>
+	<hr>
+  		<div class="audio" style="width:30%">
+   		<img src="images/methrone12(500x500).jpg" alt="img/methrone12(500x500)"><br>
+   		<audio controls>
+ 		<source  src="musicrandb/MeThrone/06Heaven.mp3"  type="audio/mpeg"></audio>
+  	 <!--<source src="musicsinglesrock/02 Thunder.mp3" type="audio/mp3"></audio>-->
+  	  	 </div>
+  		<div>
+      <h3>" Heaven" By MeThrone</h3>
+       <!--<a href="https://www.uhinkle.com/musicmethronepurchases.inc.php?content=updatecart&id=520" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicmethronepurchases.inc.php?content=updatecart&id=520','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ 	</div>
+   
+    
+    <br>
+    <hr>
+    
+ 		    
+		<div class="audio" style="width:30%">
+		 <img src="images/andystokes12(500x500).jpg" alt="images/andystokes12(500x500)"><br>
+  		 <audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/AndyStokes/07MsnforLife.mp3"></audio>-->
+  	 <source src="musicrandb/AndyStokes/07MsnforLife.mp3" type="audio/mp3"></audio>
+  	 </div>
+	<div>
+       <h3>"Msn for Life" By Andy Stokes</h3>
+       <!--<a href="https://www.uhinkle.com/musicastokespurchases.inc.php?content=updatecart&id=519" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicastokespurchases.inc.php?content=updatecart&id=519','_system', 'location=yes');">To Purchase CD</a>--> 
+
+   </div>  
+    <br>
+    <hr>
+    
+ 		<div class="audio" style="width:30%">
+ 		  <img src="images/oletaadams1(500x500).jpg" alt="images/oletaadams1(500x500)"><br>
+   		<audio controls>
+   	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/OletaAdams/07RhythmOfLife.mp3"></audio>-->
+  	 <source src="musicrandb/OletaAdams/07RhythmOfLife.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>" Rhythm Of Life" By Oleta Adams</h3>
+       <!--<a href="https://www.uhinkle.com/musicoadamspurchases.inc.php?content=updatecart&id=516" class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicoadamspurchases.inc.php?content=updatecart&id=516','_system', 'location=yes');">To Purchase CD</a>--> 
+
+  </div>
+   
+	<br>
+	<hr>
+	
+  		<div class="audio" style="width:30%">
+  		 <img src="images/travissmith3(500x500).jpg" alt="images/travissmith3(500x500)"><br>
+   		<audio controls>
+   		<!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TravisSmith/07TakeMeDown.mp3"></audio>-->
+  	 <source src="musicrandb/TravisSmith/07TakeMeDown.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Take Me Down" By Travis Smith</h3>
+       <!--<a href="https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictsmithpurchases.inc.php?content=updatecart&id=521','_system', 'location=yes');">To Purchase CD</a>--> 
+
+  </div>
+  
+	<br>
+	<hr>
+
+ 		<div class="audio" style="width:30%">
+ 		  <img src="images/terrywright1(500x500).jpg" alt="images/terrywright1(500x500)"><br>
+  		 <audio controls>
+   	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TerryWright/07Track7.mp3"></audio>-->
+  	 <source src="musicrandb/TerryWright/07Track7.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>" She Whooped Me Good" By Terry Wright</h3>
+        <!--<a href="https://www.uhinkle.com/musictwrightpurchase.inc.php?content=updatecart&id=494" class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictwrightpurchase.inc.php?content=updatecart&id=494','_system', 'location=yes');">To Purchase CD</a>--> 
+
+      
+  </div>
+   
+	   
+    <br>
+    <hr>
+    
+  		  		<div class="audio" style="width:30%">
+  		 <img src="images/thecaliforniahoneydrops(500x500).jpg" alt="images/thecaliforniahoneydrops(500x500)"><br>
+   		<audio controls>
+     <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/ARiversInvitation/08ThisTime.mp3"></audio>-->
+  	 <source src="musicrandb/ARiversInvitation/08ThisTime.mp3" type="audio/mp3"></audio>
+  	 </div>
+ 	<div>
+      	<h3>" This Time" By California Honey Dipps</h3>
+       <!--<a href="https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497','_system', 'location=yes');">To Purchase CD</a>--> 
+
+ </div>
+  
+	    
+    <br>
+    <hr>
+  		
+  	  		<div class="audio" style="width:30%">
+  	 <img src="images/thecaliforniahoneydrops(500x500).jpg" alt="images/thecaliforniahoneydrops(500x500)"><br>
+   		<audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/ARiversInvitation/09LeadMeHome.mp3"></audio>-->
+  	 <source src="musicrandb/ARiversInvitation/09LeadMeHome.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	 	<div>
+      <h3>" Lead Me Home" By California Honey Dipps</h3>
+      <!--<a href="https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497','_system', 'location=yes');">To Purchase CD</a>-->
+
+ 	 </div>
+   
+    
+    <br>
+    <hr>
+  		<div class="audio" style="width:30%">
+  		  <img src="images/methrone12(500x500).jpg" alt="images/methrone12(500x500)"><br>
+   		<audio controls>
+   	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/MeThrone/10TurnMeOn.mp3"></audio>-->
+  	 <source src="musicrandb/MeThrone/10TurnMeOn.mp3" type="audio/mp3"></audio>
+  	 </div>
+  		<div>
+      <h3>"Turn Me On" By MeThrone</h3>
+        <!--<a href="https://www.uhinkle.com/musicmethronepurchases.inc.php?content=updatecart&id=520" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicmethronepurchases.inc.php?content=updatecart&id=520','_system', 'location=yes');">To Purchase CD</a>-->
+
+ 	 </div>
+   
+    
+    <br>
+    <hr>
+ 		<div class="audio" style="width:30%">
+ 		  <img src="images/oletaadams1(500x500).jpg" alt="images/oletaadams1(500x500)"><br>
+  		 <audio controls>
+   	  <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/OletaAdams/09WiltedRoses.mp3"></audio>-->
+  	 <source src="musicrandb/OletaAdams/09WiltedRoses.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>"  Wilted Roses" By Oleta Adams</h3>
+       <!--<a href="https://www.uhinkle.com/musicoadamspurchases.inc.php?content=updatecart&id=516" class="ui-btn">To Purchase CD</a>--> 
+      <!--<input type="button" class="move"  value="To Purchase CD">-->
+       <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicoadamspurchases.inc.php?content=updatecart&id=516','_system', 'location=yes');">To Purchase CD</a>-->
+
+ 	</div>
+  
+	   
+	<br>
+	<hr>
+
+  		<div class="audio" style="width:30%">
+  		 <img src="images/terrywright1(500x500).jpg" alt="images/terrywright1(500x500)" ><br>
+   		<audio controls>
+    	<!--<audio class="listen" preload="none" data-size="60" src="musicrandb/TerryWright/09Track9.mp3"></audio>-->
+  	 <source src="musicrandb/TerryWright/07Track7.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	 	<div>
+       <h3> By Terry Wright</h3>
+       <!--<a href="https://www.uhinkle.com/musictwrightpurchase.inc.php?content=updatecart&id=494" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musictwrightpurchase.inc.php?content=updatecart&id=494','_system', 'location=yes');">To Purchase CD</a>-->
+
+ 	 </div>
+   
+       
+	<br>
+	<hr>
+
+  				<div class="audio" style="width:30%">
+  		 <img src="images/danieldecember2(500x500).jpg" alt="images/danieldecember2(500x500)"><br>
+   		<audio controls>
+     <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/DanielDecember/11MyHeart.mp3"></audio>-->
+  	 <source src="musicrandb/DanielDecember/11MyHeart.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>"My Heart" By Daniel December</h3>
+       <!--<a href="https://www.uhinkle.com/musicddecemberpurchases.inc.php?content=updatecart&id=518" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicddecemberpurchases.inc.php?content=updatecart&id=518');">To Purchase CD</a>-->
+
+ 	 </div>
+   
+	<br>
+<hr>
+  		<div class="audio" style="width:30%">
+  		 <img src="images/generice2(500x500).jpg" alt="images/generice2(500x500)"><br>
+   		<audio controls>
+  	   <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/GeneRice/10MrTelephoneMan.mp3"></audio>-->
+  	 <source src="musicrandb/GeneRice/10MrTelephoneMan.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+      <h3>" Mr Telephone Man" By Gene Rice</h3>
+       <!--<a href="https://www.uhinkle.com/musicgricepurchases.inc.php?content=updatecart&id=517" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicgricepurchases.inc.php?content=updatecart&id=517','_system', 'location=yes');">To Purchase CD</a>-->
+
+ 	</div>
+    
+	<br>
+	<hr>
+	
+  		  
+  
+	
+  		<div class="audio" style="width:30%">
+  		 <img src="images/danieldecember2(500x500).jpg" alt="images/danieldecember2(500x500)"><br>
+   		<audio controls>
+       <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/DanielDecember/12December.mp3"></audio>-->
+  	 <source src="musicrandb/DanielDecember/12December.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" December" By Daniel December</h3>
+       <!--<a href="https://www.uhinkle.com/musicddecemberpurchases.inc.php?content=updatecart&id=518" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musicddecemberpurchases.inc.php?content=updatecart&id=518','_system', 'location=yes');">To Purchase CD</a>-->
+
+ 	</div>
+   
+<hr>
+<br>
+  		<div class="audio" style="width:30%">
+  		  <img src="images/thecaliforniahoneydrops(500x500).jpg" alt="images/thecaliforniahoneydrops(500x500)" ><br>
+   		<audio controls>
+      <!--<audio class="listen" preload="none" data-size="60" src="musicrandb/ARiversInvitation/11LongWay.mp3"></audio>-->
+  	 <source src="musicrandb/ARiversInvitation/11LongWay.mp3" type="audio/mp3"></audio>
+  	 </div>
+  	<div>
+       <h3>" Long Way" By California Honey Dipps</h3>
+      <!--<a href="https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497" class="ui-btn">To Purchase CD</a>--> 
+     <!--<input type="button" class="move"  value="To Purchase CD">-->
+      <!--<a href="#" class="ui-btn" onClick="cordova.InAppBrowser.open('https://www.uhinkle.com/musichoneydropspurchase.inc.php?content=updatecart&id=497','_system', 'location=yes');">To Purchase CD</a>-->
+
+ 	 </div>
+      
+
+<br>
+<hr>  
+		   
+    <br>
+    <hr>
+
+ 	<div data-role="footer"  data-position="fixed" style="text-align:center;">
+  <h3 class="copy"><a href="copyright.html">Copy Right&copy;Uhinkle Corporation</a></h3>
+	</div>
+	</div>
+    </div>
+  	</div>
+   
+	
+
+
+
+
+
+
+
+</body>
+</html>
